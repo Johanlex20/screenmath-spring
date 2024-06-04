@@ -1,5 +1,6 @@
 package com.aluraGenesysSpring.screenmatch;
 
+import com.aluraGenesysSpring.screenmatch.models.DatosEpisodio;
 import com.aluraGenesysSpring.screenmatch.models.DatosSerie;
 import com.aluraGenesysSpring.screenmatch.services.ConsumoApi;
 import com.aluraGenesysSpring.screenmatch.services.ConvierteDatos;
@@ -21,8 +22,12 @@ public class ScreenmatchApplication implements CommandLineRunner {
 		var json = consumoApi.obtenerDatos("https://www.omdbapi.com/?t=game+of+thrones&apikey=2de77f45");
 		System.out.println(json);
 
-		ConvierteDatos conersor = new ConvierteDatos();
-		var datos = conersor.obtenerDatos(json, DatosSerie.class);
+		ConvierteDatos conversor = new ConvierteDatos();
+		var datos = conversor.obtenerDatos(json, DatosSerie.class);
 		System.out.println(datos);
+
+		json = consumoApi.obtenerDatos("https://www.omdbapi.com/?t=game+of+thrones&Season=1&episode=y&apikey=2de77f45");
+		DatosEpisodio episodios = conversor.obtenerDatos(json, DatosEpisodio.class);
+		System.out.println(episodios);
 	}
 }
