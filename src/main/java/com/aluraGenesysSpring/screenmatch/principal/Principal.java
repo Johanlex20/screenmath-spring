@@ -1,5 +1,6 @@
 package com.aluraGenesysSpring.screenmatch.principal;
 
+import com.aluraGenesysSpring.screenmatch.models.DatosEpisodio;
 import com.aluraGenesysSpring.screenmatch.models.DatosSerie;
 import com.aluraGenesysSpring.screenmatch.models.DatosTemporadas;
 import com.aluraGenesysSpring.screenmatch.services.ConsumoApi;
@@ -17,11 +18,15 @@ public class Principal {
     private ConvierteDatos conversor = new ConvierteDatos();
 
     public void muestraElMenu(){
+
+
         System.out.println("Por favor escribe el nombre de la serie que deseas buscar:");
         var nombreSerie= sc.nextLine();
         var json = consumoApi.obtenerDatos(URL_BASE + nombreSerie.replace(" ","+") + API_KEY);
         var datos = conversor.obtenerDatos(json, DatosSerie.class);
         System.out.println(datos);
+
+
 
         //CREAR LISTA PARA VER LAS TEMPORADASA
         List<DatosTemporadas> temporadas = new ArrayList<>();
@@ -31,7 +36,20 @@ public class Principal {
             temporadas.add(datosTemporadas);
         }
         // imprimir todo lo que tenga ese lista
-        temporadas.forEach(System.out::println);
-    }
+        //temporadas.forEach(System.out::println);
 
+
+        //Mostrar el titulo de lps espisodias por temporada
+//        for (int i = 0; i < datos.totalDeTemporadas(); i++) {
+//            List<DatosEpisodio>episodiosTemporada = temporadas.get(i).episodios();
+//            for (int j = 0; j < episodiosTemporada.size(); j++) {
+//                System.out.println(episodiosTemporada.get(j).titulo());
+//            }
+//        }
+
+//      LAMBAS DE JAVA 8 SIMPLIFICA UNA LISTA DENTRO DE OTRA LISTA
+//      Consumiendo los titulos de episodio de cada temporada
+        temporadas.forEach(t->t.episodios().forEach(e-> System.out.println(e.titulo())));
+
+    }
 }
