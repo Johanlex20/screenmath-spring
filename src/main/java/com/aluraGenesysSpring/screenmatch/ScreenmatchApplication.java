@@ -1,5 +1,6 @@
 package com.aluraGenesysSpring.screenmatch;
 
+import com.aluraGenesysSpring.screenmatch.services.ConsumoApi;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,9 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("hola mundo");
+
+		ConsumoApi consumoApi = new ConsumoApi();
+		var json = consumoApi.obtenerDatos("https://www.omdbapi.com/?t=game+of+thrones&apikey=2de77f45");
+		System.out.println(json);
 	}
 }
