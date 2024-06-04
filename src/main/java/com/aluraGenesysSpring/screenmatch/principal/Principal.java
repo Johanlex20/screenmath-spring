@@ -7,6 +7,8 @@ import com.aluraGenesysSpring.screenmatch.models.Episodio;
 import com.aluraGenesysSpring.screenmatch.services.ConsumoApi;
 import com.aluraGenesysSpring.screenmatch.services.ConvierteDatos;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -78,5 +80,27 @@ public class Principal {
                 .collect(Collectors.toList());
 
         episodios.forEach(System.out::println);
+
+
+    //MANEJO DE FECHAS BUSQUEDA DE EPISODIOS POR X AÑO
+        System.out.println("Indica el año para ver episodios: ");
+        var fecha = sc.nextInt();
+        sc.nextLine();
+
+        LocalDate fechaBusqueda = LocalDate.of(fecha,1,1);
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        episodios.stream()
+                .filter(e -> e.getFechaDeLanzamiento() != null && e.getFechaDeLanzamiento().isAfter(fechaBusqueda))
+                .forEach(e -> System.out.println(
+                        "Temporada " + e.getTemporada()
+                                + " Episodio "
+                                + e.getTitulo()
+                                + "Fecha de Lanzamiento "
+                                + e.getFechaDeLanzamiento().format(dtf)
+                ));
+
+
     }
 }
