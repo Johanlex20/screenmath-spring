@@ -7,8 +7,10 @@ import com.aluraGenesysSpring.screenmatch.services.ConsumoApi;
 import com.aluraGenesysSpring.screenmatch.services.ConvierteDatos;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
     private Scanner sc = new Scanner(System.in);
@@ -49,9 +51,22 @@ public class Principal {
 
 //      LAMBAS DE JAVA 8 SIMPLIFICA UNA LISTA DENTRO DE OTRA LISTA
 //      Consumiendo los titulos de episodio de cada temporada
-        temporadas.forEach(t->t.episodios().forEach(e-> System.out.println(e.titulo())));
+        //temporadas.forEach(t->t.episodios().forEach(e-> System.out.println(e.titulo())));
 
 
+        //Converitr todas las informaciones a una lista del tipo DatosEpisodo
+
+        List<DatosEpisodio> datosEpisodios = temporadas.stream()
+                .flatMap(t -> t.episodios().stream())
+                .collect(Collectors.toList());
+
+        // TOP 5 EPISODIOS
+        System.out.println("TOP 5 EPISODIOS");
+        datosEpisodios.stream()
+                .filter(e -> !e.evaluacion().equalsIgnoreCase("N/A"))
+                .sorted(Comparator.comparing(DatosEpisodio::evaluacion).reversed())
+                .limit(5)
+                .forEach(System.out::println);
 
     }
 }
