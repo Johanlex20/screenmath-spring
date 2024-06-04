@@ -51,5 +51,7 @@ public class Principal {
 //      Consumiendo los titulos de episodio de cada temporada
         temporadas.forEach(t->t.episodios().forEach(e-> System.out.println(e.titulo())));
 
+
+
     }
 }

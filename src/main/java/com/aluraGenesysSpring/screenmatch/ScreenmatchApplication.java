@@ -3,6 +3,7 @@ package com.aluraGenesysSpring.screenmatch;
 import com.aluraGenesysSpring.screenmatch.models.DatosEpisodio;
 import com.aluraGenesysSpring.screenmatch.models.DatosSerie;
 import com.aluraGenesysSpring.screenmatch.models.DatosTemporadas;
+import com.aluraGenesysSpring.screenmatch.principal.EjemploStream;
 import com.aluraGenesysSpring.screenmatch.principal.Principal;
 import com.aluraGenesysSpring.screenmatch.services.ConsumoApi;
 import com.aluraGenesysSpring.screenmatch.services.ConvierteDatos;
@@ -24,5 +25,8 @@ public class ScreenmatchApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Principal principal = new Principal();
 		principal.muestraElMenu();
+
+//		EjemploStream ejemploStream = new EjemploStream();
+//		ejemploStream.muestraEjemplo();
 	}
 }
