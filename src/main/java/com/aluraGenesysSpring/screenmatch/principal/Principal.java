@@ -9,10 +9,7 @@ import com.aluraGenesysSpring.screenmatch.services.ConvierteDatos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -66,17 +63,16 @@ public class Principal {
 
 
         // TOP 5 EPISODIOS
-        System.out.println("TOP 5 EPISODIOS");
-        datosEpisodios.stream()
-                .filter(e -> !e.evaluacion().equalsIgnoreCase("N/A"))
-                .peek(e -> System.out.println("Primer filtro (N/A)" + e))
-                .sorted(Comparator.comparing(DatosEpisodio::evaluacion).reversed())
-                .peek(e -> System.out.println("Segundo filtro ordenación(M>/m)" + e))
-                .map(e-> e.titulo().toUpperCase())
-                .peek(e -> System.out.println("Tercer filtro Mayúsculas (m<M)" + e))
-                .limit(5)
-                .forEach(System.out::println);
-
+//        System.out.println("TOP 5 EPISODIOS");
+//        datosEpisodios.stream()
+//                .filter(e -> !e.evaluacion().equalsIgnoreCase("N/A"))
+//                .peek(e -> System.out.println("Primer filtro (N/A)" + e))
+//                .sorted(Comparator.comparing(DatosEpisodio::evaluacion).reversed())
+//                .peek(e -> System.out.println("Segundo filtro ordenación(M>/m)" + e))
+//                .map(e-> e.titulo().toUpperCase())
+//                .peek(e -> System.out.println("Tercer filtro Mayúsculas (m<M)" + e))
+//                .limit(5)
+//                .forEach(System.out::println);
 
 
 
@@ -111,6 +107,20 @@ public class Principal {
 
 
 
+
+    //      BUSCAR EPISODIOS POR PEDAZO DE TITULO
+        System.out.println("Por favor escriba el titulo del episodio que desea ver");
+        var pedazoTitulo = sc.nextLine();
+        Optional<Episodio> episodioBuscado = episodios.stream()
+                .filter(e -> e.getTitulo().toUpperCase().contains(pedazoTitulo.toUpperCase()))
+                .findFirst();
+
+        if (episodioBuscado.isPresent()){
+            System.out.println(" Episodio encontrado");
+            System.out.println(" Los datos son "+ episodioBuscado.get());
+        } else {
+            System.out.println("Episodio no encontrado");
+        }
 
 
     }
