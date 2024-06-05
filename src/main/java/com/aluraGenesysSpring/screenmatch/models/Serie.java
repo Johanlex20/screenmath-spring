@@ -1,13 +1,20 @@
 package com.aluraGenesysSpring.screenmatch.models;
-
+import jakarta.persistence.*;
 import java.util.OptionalDouble;
 
+@Entity
+@Table(name = "series")
 public class Serie {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(unique = true)
     private String titulo;
     private Integer totalDeTemporadas;
     private Double evaluacion;
     private  String poster;
+    @Enumerated(EnumType.STRING)
     private Genero genero;
     private  String sinopsis;
     private  String actores;
@@ -20,6 +27,14 @@ public class Serie {
         this.genero = Genero.fromString(datosSerie.genero().split(",")[0].trim());
         this.sinopsis = datosSerie.sinopsis();
         this.actores = datosSerie.actores();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitulo() {
