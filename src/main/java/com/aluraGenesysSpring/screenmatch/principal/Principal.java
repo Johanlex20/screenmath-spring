@@ -31,6 +31,7 @@ public class Principal {
                     3 - Mostrar Series Buscadas
                     4 - Buscar Series Por Titulo
                     5 - Buscar Top 5
+                    6 - Buscar Series Por Categoria
                     0 - Salir
                     """;
             System.out.println(menu);
@@ -52,6 +53,9 @@ public class Principal {
                 case 5:
                     buscarTop5Series();
                     break;
+                case 6:
+                    buscarSeriesPorGenero();
+                    break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
                 default:
@@ -59,6 +63,7 @@ public class Principal {
             }
         }
     }
+
 
 
     private DatosSerie getDatosSerie() {
@@ -150,6 +155,18 @@ public class Principal {
         topSeries.forEach(s-> System.out.println("Serie: "+s.getTitulo()+ " Evaluación: "+ s.getEvaluacion()));
     }
 
+
+
+    private void buscarSeriesPorGenero() {
+        System.out.println("Escribe el genero/catgoria de la serie que quiere buscar : ");
+        var genero = sc.nextLine();
+
+        var categoria = Genero.fromEspaniol(genero);
+        List<Serie> seriesPorGenero = serieRepository.findByGenero(categoria);
+        System.out.println("Las series de la categoria "+ genero);
+        seriesPorGenero.forEach(System.out::println);
+
+    }
 
 
 

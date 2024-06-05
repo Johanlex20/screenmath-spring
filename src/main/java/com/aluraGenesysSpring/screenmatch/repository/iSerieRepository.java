@@ -1,4 +1,5 @@
 package com.aluraGenesysSpring.screenmatch.repository;
+import com.aluraGenesysSpring.screenmatch.models.Genero;
 import com.aluraGenesysSpring.screenmatch.models.Serie;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,5 +11,7 @@ public interface iSerieRepository extends JpaRepository<Serie,Long> {
     Optional<Serie>findByTituloContainsIgnoreCase(String nombreSerie);
 
     List<Serie>findTop5ByOrderByEvaluacionDesc();
+
+    List<Serie> findByGenero(Genero genero);
 
 }
