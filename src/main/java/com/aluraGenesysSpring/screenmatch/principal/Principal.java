@@ -1,9 +1,6 @@
 package com.aluraGenesysSpring.screenmatch.principal;
 
-import com.aluraGenesysSpring.screenmatch.models.DatosEpisodio;
-import com.aluraGenesysSpring.screenmatch.models.DatosSerie;
-import com.aluraGenesysSpring.screenmatch.models.DatosTemporadas;
-import com.aluraGenesysSpring.screenmatch.models.Episodio;
+import com.aluraGenesysSpring.screenmatch.models.*;
 import com.aluraGenesysSpring.screenmatch.services.ConsumoApi;
 import com.aluraGenesysSpring.screenmatch.services.ConvierteDatos;
 import java.util.*;
@@ -81,7 +78,15 @@ public class Principal {
 
 
     private void mostrarSeriesBuscadas() {
-        datosSeries.forEach(System.out::println);
+        List<Serie> series = new ArrayList<>();
+        series = datosSeries.stream()
+                .map(d-> new Serie(d))
+                .collect(Collectors.toList());
+
+        series.stream()
+                .sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
+
     }
     
 }
