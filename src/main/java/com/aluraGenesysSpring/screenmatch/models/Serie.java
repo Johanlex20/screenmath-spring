@@ -20,10 +20,8 @@ public class Serie {
     private  String sinopsis;
     private  String actores;
 
-    @OneToMany(mappedBy = "serie")
+    @OneToMany(mappedBy = "serie" ,cascade = CascadeType.ALL)
     private List<Episodio>episodios;
-
-
 
     public Serie() {}
 
@@ -51,6 +49,14 @@ public class Serie {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public List<Episodio> getEpisodios() {
+        return episodios;
+    }
+
+    public void setEpisodios(List<Episodio> episodios) {
+        this.episodios = episodios;
     }
 
     public Integer getTotalDeTemporadas() {
