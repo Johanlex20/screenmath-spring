@@ -19,8 +19,11 @@ public class Serie {
     private Genero genero;
     private  String sinopsis;
     private  String actores;
-    @Transient
+
+    @OneToMany(mappedBy = "serie")
     private List<Episodio>episodios;
+
+
 
     public Serie() {}
 
