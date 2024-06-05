@@ -1,6 +1,5 @@
 package com.aluraGenesysSpring.screenmatch.models;
 import jakarta.persistence.*;
-
 import java.util.List;
 import java.util.OptionalDouble;
 
@@ -20,9 +19,10 @@ public class Serie {
     private Genero genero;
     private  String sinopsis;
     private  String actores;
-
     @Transient
     private List<Episodio>episodios;
+
+    public Serie() {}
 
     public Serie(DatosSerie datosSerie) {
         this.titulo = datosSerie.titulo();
