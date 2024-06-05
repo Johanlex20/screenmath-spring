@@ -20,7 +20,7 @@ public class Serie {
     private  String sinopsis;
     private  String actores;
 
-    @OneToMany(mappedBy = "serie" ,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "serie" ,cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episodio>episodios;
 
     public Serie() {}
@@ -55,7 +55,9 @@ public class Serie {
         return episodios;
     }
 
+    // USAR LAMBAS PROCESO PARA QUE RECONOSOCA SERIE_ID EN LA BASE DE DATOS
     public void setEpisodios(List<Episodio> episodios) {
+        episodios.forEach(e->e.setSerie(this));
         this.episodios = episodios;
     }
 
@@ -116,6 +118,7 @@ public class Serie {
                 ", evaluacion=" + evaluacion +
                 ", poster='" + poster + '\'' +
                 ", sinopsis='" + sinopsis + '\'' +
-                ", actores='" + actores + '\'' ;
+                ", actores='" + actores + '\'' +
+                ", episodios='" + episodios +'\'';
     }
 }
