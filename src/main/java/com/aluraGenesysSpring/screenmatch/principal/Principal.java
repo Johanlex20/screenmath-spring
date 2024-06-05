@@ -1,18 +1,25 @@
 package com.aluraGenesysSpring.screenmatch.principal;
-
 import com.aluraGenesysSpring.screenmatch.models.*;
+import com.aluraGenesysSpring.screenmatch.repository.iSerieRepository;
 import com.aluraGenesysSpring.screenmatch.services.ConsumoApi;
 import com.aluraGenesysSpring.screenmatch.services.ConvierteDatos;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
+
     private Scanner sc = new Scanner(System.in);
     private ConsumoApi consumoApi = new ConsumoApi();
     private static String URL_BASE ="https://www.omdbapi.com/?t=";
     private static String API_KEY = "&apikey=2de77f45";
     private ConvierteDatos conversor = new ConvierteDatos();
     private List<DatosSerie> datosSeries = new ArrayList<>();
+    private  iSerieRepository serieRepository;
+
+    public Principal(iSerieRepository serieRepository) {
+        this.serieRepository = serieRepository;
+    }
+
 
     public void muestraElMenu(){
         var opcion = -1;
@@ -71,7 +78,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DatosSerie datos = getDatosSerie();
-        datosSeries.add(datos);
+        //datosSeries.add(datos);
+        Serie serie = new Serie(datos);
+        serieRepository.save(serie);
         System.out.println(datos);
     }
 

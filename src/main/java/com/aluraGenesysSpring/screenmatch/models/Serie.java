@@ -1,5 +1,7 @@
 package com.aluraGenesysSpring.screenmatch.models;
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.OptionalDouble;
 
 @Entity
@@ -8,7 +10,7 @@ public class Serie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(unique = true)
     private String titulo;
     private Integer totalDeTemporadas;
@@ -18,6 +20,9 @@ public class Serie {
     private Genero genero;
     private  String sinopsis;
     private  String actores;
+
+    @Transient
+    private List<Episodio>episodios;
 
     public Serie(DatosSerie datosSerie) {
         this.titulo = datosSerie.titulo();
@@ -29,11 +34,11 @@ public class Serie {
         this.actores = datosSerie.actores();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
