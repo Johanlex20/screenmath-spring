@@ -164,7 +164,7 @@ public class Principal {
         var categoria = Genero.fromEspaniol(genero);
         List<Serie> seriesPorGenero = serieRepository.findByGenero(categoria);
         System.out.println("Las series de la categoria "+ genero);
-        seriesPorGenero.forEach(System.out::println);
+        seriesPorGenero.forEach(System.out::println );
 
     }
 
