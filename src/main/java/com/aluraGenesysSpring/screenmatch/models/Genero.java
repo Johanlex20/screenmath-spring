@@ -13,4 +13,15 @@ public enum Genero {
         this.generoOmdb = generoOmdb;
     }
 
+    public static Genero fromString(String text) {
+        for (Genero genero : Genero.values()) {
+            if (genero.generoOmdb.equalsIgnoreCase(text)) {
+                return genero;
+            }
+        }
+        throw new IllegalArgumentException("Ningula categoria encontrada: "+ text);
+    }
+
+
+
 }
