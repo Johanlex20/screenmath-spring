@@ -1,4 +1,5 @@
 package com.aluraGenesysSpring.screenmatch.repository;
+import com.aluraGenesysSpring.screenmatch.models.Episodio;
 import com.aluraGenesysSpring.screenmatch.models.Genero;
 import com.aluraGenesysSpring.screenmatch.models.Serie;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,9 +9,9 @@ import java.util.Optional;
 
 public interface iSerieRepository extends JpaRepository<Serie,Long> {
 
-    Optional<Serie>findByTituloContainsIgnoreCase(String nombreSerie);
+    Optional<Serie> findByTituloContainsIgnoreCase(String nombreSerie);
 
-    List<Serie>findTop5ByOrderByEvaluacionDesc();
+    List<Serie> findTop5ByOrderByEvaluacionDesc();
 
     List<Serie> findByGenero(Genero genero);
 
@@ -20,6 +21,9 @@ public interface iSerieRepository extends JpaRepository<Serie,Long> {
 
     @Query("SELECT s FROM Serie s WHERE s.totalDeTemporadas >= :totalTemporadas AND s.evaluacion >= :evaluacion")
     List<Serie> seriesPorTemporadaYEvaluacion(int totalTemporadas, Double evaluacion);
+
+    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE e.titulo ILIKE %:nombreEpisodio%")
+    List<Episodio> episodiosPorNombre(String nombreEpisodio);
 
 
 }

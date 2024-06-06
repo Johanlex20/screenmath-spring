@@ -33,6 +33,7 @@ public class Principal {
                     5 - Buscar Top 5
                     6 - Buscar Series Por Categoria
                     7 - Buscar Series Temporadas y evaluacion
+                    8 - Buscar Episodio por titulo
                     0 - Salir
                     """;
             System.out.println(menu);
@@ -59,6 +60,9 @@ public class Principal {
                     break;
                 case 7:
                     filtrarSeriesPorTemporadaYEvaluacion();
+                    break;
+                case 8:
+                    buscarEpisodiosPorTitulo();
                     break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
@@ -143,6 +147,7 @@ public class Principal {
     private void buscarSeriePorTitulo() {
         System.out.println("Escribe el nombre de la serie que deseas buscar : ");
         var nombreSerie = sc.nextLine();
+        sc.nextLine();
 
         Optional<Serie> serieBuscada = serieRepository.findByTituloContainsIgnoreCase(nombreSerie);
 
@@ -187,6 +192,16 @@ public class Principal {
                 System.out.println(s.getTitulo() + " - evalucaión: "+ s.getEvaluacion()));
     }
 
+
+
+    private void buscarEpisodiosPorTitulo(){
+        System.out.println("Ingrese titulo del episodio?");
+        var nombreEpisodio = sc.nextLine();
+
+        List<Episodio> episodiosEncontrados = serieRepository.episodiosPorNombre(nombreEpisodio);
+        episodiosEncontrados.forEach(e -> System.out.printf("Serie: %s Temporada: %s Episodio: %s Evaluación: %s\n",
+                e.getSerie().getTitulo(), e.getTemporada(), e.getNumeroEpisodio(), e.getEvaluacion()));
+    }
 
 
 
