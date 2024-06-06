@@ -2,6 +2,7 @@ package com.aluraGenesysSpring.screenmatch.services;
 import com.aluraGenesysSpring.screenmatch.dto.EpisodioDTO;
 import com.aluraGenesysSpring.screenmatch.dto.SerieDTO;
 import com.aluraGenesysSpring.screenmatch.models.Episodio;
+import com.aluraGenesysSpring.screenmatch.models.Genero;
 import com.aluraGenesysSpring.screenmatch.models.Serie;
 import com.aluraGenesysSpring.screenmatch.repository.iSerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +80,10 @@ public class SerieService {
                         e.getTitulo(),
                         e.getNumeroEpisodio()))
                 .collect(Collectors.toList());
+    }
+
+    public List<SerieDTO> obtnerSeriesPorGenero(String nombreGenero) {
+        Genero genero = Genero.fromEspaniol(nombreGenero);
+        return converierteDatos(serieRpository.findByGenero(genero));
     }
 }
