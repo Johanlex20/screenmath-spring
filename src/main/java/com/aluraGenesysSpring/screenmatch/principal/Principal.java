@@ -16,6 +16,7 @@ public class Principal {
     private List<DatosSerie> datosSeries = new ArrayList<>();
     private  iSerieRepository serieRepository;
     private List<Serie> series;
+    private Optional<Serie> serieBuscada;
 
     public Principal(iSerieRepository serieRepository) {
         this.serieRepository = serieRepository;
@@ -34,6 +35,7 @@ public class Principal {
                     6 - Buscar Series Por Categoria
                     7 - Buscar Series Temporadas y evaluacion
                     8 - Buscar Episodio por titulo
+                    9 - Top 5 Episodios por serie
                     0 - Salir
                     """;
             System.out.println(menu);
@@ -63,6 +65,9 @@ public class Principal {
                     break;
                 case 8:
                     buscarEpisodiosPorTitulo();
+                    break;
+                case 9:
+                    buscarTop5Episodios();
                     break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
@@ -149,7 +154,7 @@ public class Principal {
         var nombreSerie = sc.nextLine();
         sc.nextLine();
 
-        Optional<Serie> serieBuscada = serieRepository.findByTituloContainsIgnoreCase(nombreSerie);
+        serieBuscada = serieRepository.findByTituloContainsIgnoreCase(nombreSerie);
 
         if (serieBuscada.isPresent()){
             System.out.println("La serie buscada es: "+serieBuscada.get());
@@ -203,6 +208,18 @@ public class Principal {
                 e.getSerie().getTitulo(), e.getTemporada(), e.getNumeroEpisodio(), e.getEvaluacion()));
     }
 
+
+
+    private void  buscarTop5Episodios(){
+        buscarSeriePorTitulo();
+
+        if (serieBuscada.isPresent()){
+            Serie serie = serieBuscada.get();
+            List<Episodio> topEpisodios = serieRepository.top5Episodios(serie);
+            topEpisodios.forEach(e -> System.out.printf("Serie: %s Temporada: %s Episodio: %s Evaluación: %s\n",
+                    e.getSerie().getTitulo(), e.getTemporada(), e.getTitulo(), e.getEvaluacion()));
+        }
+    }
 
 
 
