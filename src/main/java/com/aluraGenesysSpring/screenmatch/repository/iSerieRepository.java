@@ -1,4 +1,5 @@
 package com.aluraGenesysSpring.screenmatch.repository;
+import com.aluraGenesysSpring.screenmatch.dto.EpisodioDTO;
 import com.aluraGenesysSpring.screenmatch.models.Episodio;
 import com.aluraGenesysSpring.screenmatch.models.Genero;
 import com.aluraGenesysSpring.screenmatch.models.Serie;
@@ -31,5 +32,6 @@ public interface iSerieRepository extends JpaRepository<Serie,Long> {
     @Query("SELECT s FROM Serie s " + "JOIN s.episodios e " + "GROUP BY s " + "ORDER BY MAX(e.fechaDeLanzamiento) DESC LIMIT 5")
     List<Serie> lanzamientosMaRecientes();
 
-
+    @Query("SELECT e FROM Serie s JOIN s.episodios e WHERE s.id = :id AND e.temporada = :numeroTemporada")
+    List<Episodio> obtenerTemporadasPorNumero(Long id, Long numeroTemporada);
 }

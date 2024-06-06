@@ -1,6 +1,7 @@
 package com.aluraGenesysSpring.screenmatch.services;
 import com.aluraGenesysSpring.screenmatch.dto.EpisodioDTO;
 import com.aluraGenesysSpring.screenmatch.dto.SerieDTO;
+import com.aluraGenesysSpring.screenmatch.models.Episodio;
 import com.aluraGenesysSpring.screenmatch.models.Serie;
 import com.aluraGenesysSpring.screenmatch.repository.iSerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,4 +72,12 @@ public class SerieService {
         return null;
     }
 
+    public List<EpisodioDTO> obtenerTemporadasPorNumero(Long id, Long numeroTemporada) {
+        return serieRpository.obtenerTemporadasPorNumero(id,numeroTemporada).stream()
+                .map(e-> new EpisodioDTO(
+                        e.getTemporada(),
+                        e.getTitulo(),
+                        e.getNumeroEpisodio()))
+                .collect(Collectors.toList());
+    }
 }
