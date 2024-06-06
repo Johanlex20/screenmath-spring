@@ -216,11 +216,9 @@ public class Principal {
         if (serieBuscada.isPresent()){
             Serie serie = serieBuscada.get();
             List<Episodio> topEpisodios = serieRepository.top5Episodios(serie);
-            topEpisodios.forEach(e -> System.out.printf("Serie: %s Temporada: %s Episodio: %s Evaluación: %s\n",
-                    e.getSerie().getTitulo(), e.getTemporada(), e.getTitulo(), e.getEvaluacion()));
+            topEpisodios.forEach(e->
+                    System.out.printf("Serie: %s Temporada Episodio %s %s Evaluación %s\n",
+                            e.getSerie(), e.getTemporada(), e.getTitulo(), e.getEvaluacion()));
         }
     }
-
-
-
 }
